@@ -4,21 +4,20 @@
       <h1>Vue Voxer</h1>
       <p>Realtime Voice Chat</p>
     </header>
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-
-import { auth } from "./firebase"
+import { auth } from "./firebase";
 
 console.log(auth);
 
 export default {
-  name: 'App',
-  components: {
-
-  }
-}
+  name: "App",
+  components: {},
+};
 </script>
 
 <style>
