@@ -4,9 +4,11 @@ import {
   firestorePlugin
 } from 'vuefire'
 import VueRouter from 'vue-router'
+import VueCompositionApi from '@vue/composition-api'
 
 Vue.use(VueRouter)
 Vue.use(firestorePlugin)
+Vue.use(VueCompositionApi)
 
 Vue.config.productionTip = false
 
