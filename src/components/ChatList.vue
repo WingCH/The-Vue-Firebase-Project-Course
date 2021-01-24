@@ -1,13 +1,14 @@
 <template>
   <div>
-
-      <ui>
-          <li v-for="chat of chats" :key="chat.id">
-              {{ chat.id }}
-          </li>
-      </ui>
+    <ul>
+      <li v-for="chat of chats" :key="chat.id">
+        <router-link :to="{ name: 'chat', params: { id: chat.id } }">{{
+          chat.id
+        }}</router-link>
+      </li>
+    </ul>
     <button @click="createChatRoom()" class="button">
-      Create New Chat Room
+      Create New Chat R oom
     </button>
   </div>
 </template>
@@ -22,11 +23,11 @@ export default {
     };
   },
   firestore() {
-    return { 
+    return {
       chats: db.collection("chats").where("owner", "==", this.uid),
     };
   },
-  methods: {  
+  methods: {
     async createChatRoom() {
       const newChat = await db.collection("chats").add({
         createdAt: Date.now(),
