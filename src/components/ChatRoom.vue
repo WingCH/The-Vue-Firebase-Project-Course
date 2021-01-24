@@ -49,7 +49,7 @@
 import User from "./User.vue";
 import ChatMessage from "./ChatMessage";
 import Login from "./Login.vue";
-import { db } from "../firebase";
+import { db, storage } from "../firebase";
 
 export default {
   components: {
@@ -86,17 +86,31 @@ export default {
     async addMessage(uid) {
       this.loading = true;
 
+      let audioURL = null;
+
       const { id: messageId } = this.messagesCollection.doc();
+
+      if (this.newAudio) {
+        const storageRef = storage
+          .ref("chats")
+          .child(this.chatId)
+          .child(`${messageId}.wav`);
+
+        await storageRef.put(this.newAudio);
+
+        audioURL = await storageRef.getDownloadURL();
+      }
 
       await this.messagesCollection.doc(messageId).set({
         text: this.newMessageText,
         sender: uid,
         createdAt: Date.now(),
+        audioURL,
       });
 
-      this.newMessageText = null;
-
       this.loading = false;
+      this.newMessageText = null;
+      this.audioURL = null;
     },
     async record() {
       this.newAudio = null;
