@@ -70,6 +70,10 @@ export default {
         sender: uid,
         createdAt: Date.now(),
       });
+
+      this.newMessageText = null
+
+       this.loading = false;
     },
   },
 };
