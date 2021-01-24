@@ -7,7 +7,10 @@
         <div v-if="user">
           <ul>
             <li v-for="message of messages" :key="message.id">
-              {{ message.text }}
+              <ChatMessage
+                :message="message"
+                :owner="user.uid === message.sender"
+              />
             </li>
           </ul>
 
@@ -22,8 +25,6 @@
             Send
           </button>
         </div>
-
-        <Login v-else />
       </template>
     </User>
   </main>
@@ -31,13 +32,13 @@
 
 <script>
 import User from "./User.vue";
-import Login from "./Login.vue";
+import ChatMessage from "./ChatMessage";
 import { db } from "../firebase";
 
 export default {
   components: {
     User,
-    Login,
+    ChatMessage,
   },
   data() {
     return {
@@ -71,10 +72,25 @@ export default {
         createdAt: Date.now(),
       });
 
-      this.newMessageText = null
+      this.newMessageText = null;
 
-       this.loading = false;
+      this.loading = false;
     },
   },
 };
 </script>
+
+<style scoped>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+li {
+    display: flex;
+}
+
+</style>

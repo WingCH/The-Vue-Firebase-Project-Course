@@ -8,7 +8,7 @@
       </li>
     </ul>
     <button @click="createChatRoom()" class="button">
-      Create New Chat R oom
+      Create New Chat Room
     </button>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
   },
   firestore() {
     return {
-      chats: db.collection("chats").where("owner", "==", this.uid),
+      chats: db.collection("chats"),
     };
   },
   methods: {
